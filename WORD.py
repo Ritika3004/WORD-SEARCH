@@ -70,8 +70,28 @@ class Solution:
         return moves
 
 if __name__ == "__main__":
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    
+    # Use os.path.join to create platform-independent file paths
+    grid_file = os.path.join(current_dir, 'grid1.txt')
+    word_file = os.path.join(current_dir, 'hard.txt')
+
+    try:
+        grid_obj = Grid(grid_file, word_file)
+        grid, word_list = grid_obj.make_grid()
+        solution_obj = Solution()
+        moves = solution_obj.word_search(grid, word_list)
+        
+        for row in grid:
+            print(' '.join(row))
+        
+        print(moves)
+    except FileNotFoundError as e:
+        print(f"Error: {e}")
+        print("Please make sure 'grid1.txt' and 'easy.txt' are in the same directory as this script.")
+    """
     grid_file = 'grid1.txt'
-    word_file = 'medium.txt'
+    word_file = 'easy.txt'
 
     grid_obj = Grid(grid_file, word_file)
     grid, word_list = grid_obj.make_grid()
@@ -82,3 +102,4 @@ if __name__ == "__main__":
         print(' '.join(row))
     
     print(moves)
+    """
